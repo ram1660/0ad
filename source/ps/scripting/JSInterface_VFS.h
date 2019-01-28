@@ -22,6 +22,7 @@
 
 namespace JSI_VFS
 {
+	WriteBuffer m_buffer;
 	// Return an array of pathname strings, one for each matching entry in the
 	// specified directory.
 	JS::Value BuildDirEntList(ScriptInterface::CxPrivate* pCxPrivate, const std::vector<CStrW>& validPaths, const std::wstring& path, const std::wstring& filterStr, bool recurse);
@@ -46,6 +47,14 @@ namespace JSI_VFS
 
 	// Save given JS Object to a JSON file
 	void WriteJSONFile(ScriptInterface::CxPrivate* pCxPrivate, const std::wstring& filePath, JS::HandleValue val1);
+
+	// Magshi work ---------------
+	// Writes into a given file
+	void WriteToFile(ScriptInterface::CxPrivate* pCxPrivate, const std::wstring& filePath);
+
+	// In order to avoid overwriting the file every single time we are going to append to the buffer data and in the javascript each X turns we will write down the data.
+	void AppendToBuffer(ScriptInterface::CxPrivate* pCxPrivate, JS::HandleValue val1);
+	// ---------------------
 
 	// Tests whether the current script context is allowed to read from the given directory
 	bool PathRestrictionMet(ScriptInterface::CxPrivate* pCxPrivate, const std::vector<CStrW>& validPaths, const CStrW& filePath);

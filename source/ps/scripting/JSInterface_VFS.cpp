@@ -209,6 +209,32 @@ void JSI_VFS::WriteJSONFile(ScriptInterface::CxPrivate* pCxPrivate, const std::w
 	g_VFS->CreateFile(path, buf.Data(), buf.Size());
 }
 
+void JSI_VFS::WriteToFile(ScriptInterface::CxPrivate * pCxPrivate, const std::wstring & filePath)
+{
+	JSContext* cx = pCxPrivate->pScriptInterface->GetContext();
+	JSAutoRequest rq(cx);
+	//JS::RootedValue val(cx, val1);
+	VfsPath path(filePath);
+	g_VFS->CreateFile(path, m_buffer.Data(), m_buffer.Size());
+}
+
+void JSI_VFS::AppendToBuffer(ScriptInterface::CxPrivate * pCxPrivate, JS::HandleValue val1)
+{
+	JSContext* cx = pCxPrivate->pScriptInterface->GetContext();
+	JSAutoRequest rq(cx);
+	JS::RootedValue val(cx, val1);
+	// Clearing the "(new string("{important data}"))" - Because we need to enter only the important data.
+	std::string str(pCxPrivate->pScriptInterface->ToString(&val, false));
+	std::string clearedString;
+	size_t foundFisrt = str.find("\"") + 1;
+	clearedString = str.substr(foundFisrt);
+	size_t foundSecond = clearedString.find("\"");
+	clearedString = clearedString.substr(0, foundSecond);
+	clearedString.append("\n");
+	m_buffer.Append(clearedString.c_str(), clearedString.length());
+}
+
+
 bool JSI_VFS::PathRestrictionMet(ScriptInterface::CxPrivate* pCxPrivate, const std::vector<CStrW>& validPaths, const CStrW& filePath)
 {
 	for (const CStrW& validPath : validPaths)
@@ -268,6 +294,11 @@ void JSI_VFS::RegisterScriptFunctions_Simulation(const ScriptInterface& scriptIn
 	scriptInterface.RegisterFunction<JS::Value, std::wstring, std::wstring, bool, &Script_ListDirectoryFiles_Simulation>("ListDirectoryFiles");
 	scriptInterface.RegisterFunction<bool, std::wstring, Script_FileExists_Simulation>("FileExists");
 	scriptInterface.RegisterFunction<JS::Value, std::wstring, &Script_ReadJSONFile_Simulation>("ReadJSONFile");
+	scriptInterface.RegisterFunction<void, std::wstring, &WriteToFile>("WriteToFile");
+	scriptInterface.RegisterFunction<void, JS::HandleValue, &AppendToBuffer>("AppendToBuffer");
+	scriptInterface.RegisterFunction<JS::Value, std::wstring, &JSI_VFS::ReadFile>("ReadFile");
+	scriptInterface.RegisterFunction<JS::Value, std::wstring, &JSI_VFS::ReadFileLines>("ReadFileLines");
+	scriptInterface.RegisterFunction<void, std::wstring, JS::HandleValue, &WriteJSONFile>("WriteJSONFile");
 }
 
 void JSI_VFS::RegisterScriptFunctions_Maps(const ScriptInterface& scriptInterface)
