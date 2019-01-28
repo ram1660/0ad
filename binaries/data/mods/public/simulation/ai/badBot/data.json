@@ -1,0 +1,7 @@
+{
+  "name": "badBot",
+  "description": "An AI which learns how to play 0.A.D",
+  "moduleName" : "badBot",
+  "constructor": "badBot",
+  "useShared": true
+}
