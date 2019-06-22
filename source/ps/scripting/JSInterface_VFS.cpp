@@ -16,7 +16,7 @@
  */
 
 #include "precompiled.h"
-
+#include "lib/external_libraries/enet.h"
 #include "JSInterface_VFS.h"
 
 #include "lib/file/vfs/vfs_util.h"
@@ -25,7 +25,6 @@
 #include "ps/Filesystem.h"
 #include "scriptinterface/ScriptVal.h"
 #include "scriptinterface/ScriptInterface.h"
-
 #include <sstream>
 
 // Only allow engine compartments to read files they may be concerned about.
@@ -44,8 +43,12 @@
 	else if (err < 0)\
 		LOGERROR("Unknown failure in VFS %i", err );
 	/* else: success */
-
-
+WriteBuffer m_buffer;
+ENetHost* client;
+ENetPeer *peer;
+ENetAddress address;
+ENetEvent event;
+int eventStatus = 1;
 // state held across multiple BuildDirEntListCB calls; init by BuildDirEntList.
 struct BuildDirEntListState
 {
@@ -60,7 +63,6 @@ struct BuildDirEntListState
 	{
 	}
 };
-
 // called for each matching directory entry; add its full pathname to array.
 static Status BuildDirEntListCB(const VfsPath& pathname, const CFileInfo& UNUSED(fileINfo), uintptr_t cbData)
 {
@@ -105,6 +107,8 @@ JS::Value JSI_VFS::BuildDirEntList(ScriptInterface::CxPrivate* pCxPrivate, const
 // Return true iff the file exits
 bool JSI_VFS::FileExists(ScriptInterface::CxPrivate* pCxPrivate, const std::vector<CStrW>& validPaths, const CStrW& filename)
 {
+	static int counter = 0;
+	counter++;
 	return PathRestrictionMet(pCxPrivate, validPaths, filename) && g_VFS->GetFileInfo(filename, 0) == INFO::OK;
 }
 
@@ -147,6 +151,19 @@ JS::Value JSI_VFS::ReadFile(ScriptInterface::CxPrivate* pCxPrivate, const std::w
 	JS::RootedValue ret(cx);
 	ScriptInterface::ToJSVal(cx, &ret, contents.FromUTF8());
 	return ret;
+}
+
+std::string JSI_VFS::ReadNewFile(ScriptInterface::CxPrivate * pCxPrivate, const std::wstring & filename)
+{
+	std::ifstream file(filename);
+	std::string str = "";
+	if (file.is_open())
+	{
+		std::getline(file, str);
+
+	}
+	file.close();
+	return str;
 }
 
 // Return file contents as an array of lines. Assume file is UTF-8 encoded text.
@@ -197,6 +214,22 @@ void JSI_VFS::WriteJSONFile(ScriptInterface::CxPrivate* pCxPrivate, const std::w
 {
 	JSContext* cx = pCxPrivate->pScriptInterface->GetContext();
 	JSAutoRequest rq(cx);
+	// TODO: This is a workaround because we need to pass a MutableHandle to StringifyJSON.
+	JS::RootedValue val(cx, val1);
+
+	std::string str(pCxPrivate->pScriptInterface->StringifyJSON(&val, false));
+
+	VfsPath path(filePath);
+	WriteBuffer buf;
+	buf.Append(str.c_str(), str.length());
+	g_VFS->CreateFile(path, buf.Data(), buf.Size());
+}
+
+void JSI_VFS::newWriteJSONFile(ScriptInterface::CxPrivate* pCxPrivate, const std::wstring& filePath, JS::HandleValue val1)
+{
+	JSContext* cx = pCxPrivate->pScriptInterface->GetContext();
+	JSAutoRequest rq(cx);
+	std::ofstream jsonFile(filePath);
 
 	// TODO: This is a workaround because we need to pass a MutableHandle to StringifyJSON.
 	JS::RootedValue val(cx, val1);
@@ -206,6 +239,8 @@ void JSI_VFS::WriteJSONFile(ScriptInterface::CxPrivate* pCxPrivate, const std::w
 	VfsPath path(filePath);
 	WriteBuffer buf;
 	buf.Append(str.c_str(), str.length());
+	jsonFile << str;
+	jsonFile.close();
 	g_VFS->CreateFile(path, buf.Data(), buf.Size());
 }
 
@@ -234,6 +269,77 @@ void JSI_VFS::AppendToBuffer(ScriptInterface::CxPrivate * pCxPrivate, JS::Handle
 	m_buffer.Append(clearedString.c_str(), clearedString.length());
 }
 
+
+std::string JSI_VFS::SendDataToML(ScriptInterface::CxPrivate * pCxPrivate, JS::HandleValue val1)
+{
+	JSContext* cx = pCxPrivate->pScriptInterface->GetContext();
+	JSAutoRequest rq(cx);
+	JS::RootedValue val(cx, val1);
+	std::string str(pCxPrivate->pScriptInterface->StringifyJSON(&val, false));
+	/* Create a reliable packet of size 7 containing "packet\0" */
+	ENetPacket * packet = enet_packet_create(str.c_str(), str.length() + 1, ENET_PACKET_FLAG_RELIABLE);
+	/* One could also broadcast the packet by         */
+	/* enet_host_broadcast (host, 0, packet);         */
+	enet_peer_send(peer, 0, packet);
+	//send(sock, str.c_str(), str.length, 0);
+	LOGMESSAGE("Send units info... waiting for response.");
+	while (true)
+	{
+		eventStatus = enet_host_service(client, &event, 50000);
+		if (eventStatus > 0)
+		{
+			switch (event.type)
+			{
+			case ENET_EVENT_TYPE_RECEIVE:
+				enet_uint8 answer = *(event.packet->data);
+				enet_packet_destroy(event.packet);
+				return std::string((char*) answer);
+			}
+		}
+		continue;
+	}
+}
+
+void JSI_VFS::ConnectToServer(ScriptInterface::CxPrivate * pCxPrivate, const int port)
+{
+	if (enet_initialize() != 0)
+	{
+		LOGMESSAGE("An error occured while initializing ENet.");
+		return;
+	}
+	client = enet_host_create(NULL, 1, 2, 0, 0);
+	if (client == NULL)
+		LOGMESSAGE("ML Server error: Couldn't create client instance!");
+
+	enet_address_set_host(&address, "localhost");
+	address.port = 1234;
+	peer = enet_host_connect(client, &address, 2, 0);
+	if (peer == NULL)
+	{
+		LOGMESSAGE("Couldn't find the server!");
+		return;
+	}
+	/* Wait up to 1 seconds for the connection attempt to succeed. */
+	if (enet_host_service(client, &event, 1000) > 0 &&
+		event.type == ENET_EVENT_TYPE_CONNECT)
+	{
+		LOGMESSAGE("Connection to to ML server succeeded.");
+	}
+	else
+	{
+		/* Either the 5 seconds are up or a disconnect event was */
+		/* received. Reset the peer in the event the 5 seconds   */
+		/* had run out without any significant event.            */
+		enet_peer_reset(peer);
+		LOGMESSAGE("Connection to ML server failed.");
+	}
+}
+
+inline bool JSI_VFS::isFileInUse(ScriptInterface::CxPrivate* pCxPrivate, const std::wstring& filePath)
+{
+	struct stat buffer;
+	return (stat((char*)filePath.c_str(), &buffer) == 0);
+}
 
 bool JSI_VFS::PathRestrictionMet(ScriptInterface::CxPrivate* pCxPrivate, const std::vector<CStrW>& validPaths, const CStrW& filePath)
 {
@@ -291,6 +397,8 @@ void JSI_VFS::RegisterScriptFunctions_GUI(const ScriptInterface& scriptInterface
 
 void JSI_VFS::RegisterScriptFunctions_Simulation(const ScriptInterface& scriptInterface)
 {
+	//scriptInterface.RegisterFunction<JS::Value, JS::HandleValue, &SendDataToML>("sendDataToMLServer");
+	//scriptInterface.RegisterFunction<void, &ConnectToServer>("connectML");
 	scriptInterface.RegisterFunction<JS::Value, std::wstring, std::wstring, bool, &Script_ListDirectoryFiles_Simulation>("ListDirectoryFiles");
 	scriptInterface.RegisterFunction<bool, std::wstring, Script_FileExists_Simulation>("FileExists");
 	scriptInterface.RegisterFunction<JS::Value, std::wstring, &Script_ReadJSONFile_Simulation>("ReadJSONFile");
@@ -299,11 +407,18 @@ void JSI_VFS::RegisterScriptFunctions_Simulation(const ScriptInterface& scriptIn
 	scriptInterface.RegisterFunction<JS::Value, std::wstring, &JSI_VFS::ReadFile>("ReadFile");
 	scriptInterface.RegisterFunction<JS::Value, std::wstring, &JSI_VFS::ReadFileLines>("ReadFileLines");
 	scriptInterface.RegisterFunction<void, std::wstring, JS::HandleValue, &WriteJSONFile>("WriteJSONFile");
+	scriptInterface.RegisterFunction<bool, std::wstring, &JSI_VFS::isFileInUse>("isFileInUse");
+	scriptInterface.RegisterFunction<std::string, std::wstring, &JSI_VFS::ReadNewFile>("ReadNewFile");
+
 }
 
 void JSI_VFS::RegisterScriptFunctions_Maps(const ScriptInterface& scriptInterface)
 {
 	scriptInterface.RegisterFunction<JS::Value, std::wstring, std::wstring, bool, &Script_ListDirectoryFiles_Maps>("ListDirectoryFiles");
 	scriptInterface.RegisterFunction<bool, std::wstring, Script_FileExists_Maps>("FileExists");
+	scriptInterface.RegisterFunction<void, std::wstring, JS::HandleValue, &WriteJSONFile>("WriteJSONFile");
 	scriptInterface.RegisterFunction<JS::Value, std::wstring, &Script_ReadJSONFile_Maps>("ReadJSONFile");
+	scriptInterface.RegisterFunction<void, std::wstring, &WriteToFile>("WriteToFile");
+	scriptInterface.RegisterFunction<void, JS::HandleValue, &AppendToBuffer>("AppendToBuffer");
+	scriptInterface.RegisterFunction<JS::Value, std::wstring, &JSI_VFS::ReadFile>("ReadFile");
 }

@@ -17,12 +17,9 @@
 
 #ifndef INCLUDED_JSI_VFS
 #define INCLUDED_JSI_VFS
-
 #include "scriptinterface/ScriptInterface.h"
-
 namespace JSI_VFS
 {
-	WriteBuffer m_buffer;
 	// Return an array of pathname strings, one for each matching entry in the
 	// specified directory.
 	JS::Value BuildDirEntList(ScriptInterface::CxPrivate* pCxPrivate, const std::vector<CStrW>& validPaths, const std::wstring& path, const std::wstring& filterStr, bool recurse);
@@ -39,6 +36,7 @@ namespace JSI_VFS
 	// Return file contents in a string.
 	JS::Value ReadFile(ScriptInterface::CxPrivate* pCxPrivate, const std::wstring& filename);
 
+	std::string ReadNewFile(ScriptInterface::CxPrivate* pCxPrivate, const std::wstring& filename);
 	// Return file contents as an array of lines.
 	JS::Value ReadFileLines(ScriptInterface::CxPrivate* pCxPrivate, const std::wstring& filename);
 
@@ -51,9 +49,17 @@ namespace JSI_VFS
 	// Magshi work ---------------
 	// Writes into a given file
 	void WriteToFile(ScriptInterface::CxPrivate* pCxPrivate, const std::wstring& filePath);
-
+	
 	// In order to avoid overwriting the file every single time we are going to append to the buffer data and in the javascript each X turns we will write down the data.
 	void AppendToBuffer(ScriptInterface::CxPrivate* pCxPrivate, JS::HandleValue val1);
+
+	std::string SendDataToML(ScriptInterface::CxPrivate* pCxPrivate, JS::HandleValue val1);
+
+	void ConnectToServer(ScriptInterface::CxPrivate * pCxPrivate, const int port);
+
+	void newWriteJSONFile(ScriptInterface::CxPrivate* pCxPrivate, const std::wstring& filePath, JS::HandleValue val1);
+
+	inline bool isFileInUse(ScriptInterface::CxPrivate* pCxPrivate, const std::wstring& filePath);
 	// ---------------------
 
 	// Tests whether the current script context is allowed to read from the given directory

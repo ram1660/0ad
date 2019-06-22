@@ -1,0 +1,7 @@
+{
+  "name": "PetraML",
+  "description": "PetraML is our work for a project about machine learning.",
+  "moduleName" : "PETRAML",
+  "constructor": "PetraBotML",
+  "useShared": true
+}

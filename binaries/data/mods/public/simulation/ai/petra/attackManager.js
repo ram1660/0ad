@@ -231,7 +231,7 @@ m.AttackManager.prototype.assignBombers = function(gameState)
 };
 
 /**
- * Some functions are run every turn
+ * Some functions run every turn
  * Others once in a while
  */
 m.AttackManager.prototype.update = function(gameState, queues, events)

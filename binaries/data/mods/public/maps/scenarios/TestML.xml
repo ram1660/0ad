@@ -1,0 +1,752 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Scenario version="6">
+          <Environment>
+            <SkySet>default</SkySet>
+            <SunColor b="0.74902" g="0.74902" r="0.74902" />
+            <SunElevation angle="0.785398" />
+            <SunRotation angle="-0.785396" />
+            <TerrainAmbientColor b="0.501961" g="0.501961" r="0.501961" />
+            <UnitsAmbientColor b="0.501961" g="0.501961" r="0.501961" />
+            <Fog>
+              <FogFactor>0</FogFactor>
+              <FogThickness>0.5</FogThickness>
+              <FogColor b="0.894118" g="0.8" r="0.8" />
+            </Fog>
+            <Water>
+              <WaterBody>
+                <Type>ocean</Type>
+                <Color b="0.694118" g="0.34902" r="0.294118" />
+                <Tint b="0.584314" g="0.294118" r="0.27451" />
+                <Height>5</Height>
+                <Waviness>4</Waviness>
+                <Murkiness>0.45</Murkiness>
+                <WindAngle>-0.245437</WindAngle>
+              </WaterBody>
+            </Water>
+            <Postproc>
+              <Brightness>0</Brightness>
+              <Contrast>1</Contrast>
+              <Saturation>0.99</Saturation>
+              <Bloom>0.1999</Bloom>
+              <PostEffect>default</PostEffect>
+            </Postproc>
+          </Environment>
+          <Camera>
+            <Position x="334.173" y="245.924" z="227.651" />
+            <Rotation angle="-0.0545636" />
+            <Declination angle="0.68225" />
+          </Camera>
+          <ScriptSettings>
+<![CDATA[{
+  "AISeed": 0,
+  "CircularMap": true,
+  "Description": "This map going to generate two random armies to simulate fights",
+  "Keywords": [],
+  "LockTeams": false,
+  "Name": "Simulation map",
+  "PlayerData": [
+    {
+      "AI": "petra",
+      "Civ": "rome",
+      "Name": "Army 1"
+    },
+    {
+      "AI": "petra",
+      "Civ": "maur",
+      "Name": "Army 2"
+    }
+  ],
+  "Preview": "",
+  "RevealMap": true,
+  "VictoryConditions": [
+    "conquest_units"
+  ],
+	"TriggerScripts" : [
+		"scripts/TriggerHelper.js",
+		"scenarios/MLScenario_triggers.js"
+	]
+}
+]]></ScriptSettings>
+          <Entities>
+            <Entity uid="10">
+              <Template>units/mace_champion_cavalry</Template>
+              <Player>1</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="11">
+              <Template>units/mace_cavalry_javelinist_a</Template>
+              <Player>1</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="12">
+              <Template>units/mace_infantry_javelinist_e</Template>
+              <Player>1</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="13">
+              <Template>units/mace_infantry_slinger_a</Template>
+              <Player>1</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="14">
+              <Template>units/mace_champion_cavalry_barracks</Template>
+              <Player>1</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="15">
+              <Template>units/mace_champion_infantry_e</Template>
+              <Player>1</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="16">
+              <Template>units/mace_catafalque</Template>
+              <Player>1</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="17">
+              <Template>units/mace_thureophoros</Template>
+              <Player>1</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="18">
+              <Template>units/mace_thorakites</Template>
+              <Player>1</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="19">
+              <Template>units/mace_infantry_pikeman_b</Template>
+              <Player>1</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="20">
+              <Template>units/mace_hero_craterus</Template>
+              <Player>1</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="21">
+              <Template>units/mace_thorakites</Template>
+              <Player>1</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="22">
+              <Template>units/mace_infantry_archer_a</Template>
+              <Player>1</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="23">
+              <Template>units/mace_champion_infantry_e_barracks</Template>
+              <Player>1</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="24">
+              <Template>units/mace_cavalry_javelinist_a</Template>
+              <Player>1</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="25">
+              <Template>units/mace_thureophoros</Template>
+              <Player>1</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="26">
+              <Template>units/mace_infantry_pikeman_a</Template>
+              <Player>1</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="27">
+              <Template>units/mace_hero_philip</Template>
+              <Player>1</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="28">
+              <Template>units/mace_infantry_slinger_a</Template>
+              <Player>1</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="29">
+              <Template>units/mace_cavalry_spearman_a</Template>
+              <Player>1</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="30">
+              <Template>units/mace_infantry_archer_a</Template>
+              <Player>1</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="31">
+              <Template>units/mace_cavalry_spearman_e</Template>
+              <Player>1</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="32">
+              <Template>units/mace_infantry_archer_e</Template>
+              <Player>1</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="33">
+              <Template>units/mace_cavalry_spearman_e</Template>
+              <Player>1</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="34">
+              <Template>units/mace_cavalry_spearman_b</Template>
+              <Player>1</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="35">
+              <Template>units/spart_infantry_spearman_a</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="36">
+              <Template>units/spart_hero_agis</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="37">
+              <Template>units/spart_infantry_javelinist_b</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="38">
+              <Template>units/spart_cavalry_spearman_b</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="39">
+              <Template>units/spart_infantry_spearman_a</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="40">
+              <Template>units/spart_cavalry_javelinist_b</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="41">
+              <Template>units/spart_infantry_javelinist_b</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="42">
+              <Template>units/spart_cavalry_javelinist_e</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="43">
+              <Template>units/spart_cavalry_javelinist_a</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="44">
+              <Template>units/spart_hero_brasidas</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="45">
+              <Template>units/spart_cavalry_spearman_b</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="46">
+              <Template>units/spart_black_cloak</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="47">
+              <Template>units/spart_cavalry_javelinist_e</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="48">
+              <Template>units/spart_infantry_spearman_e</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="49">
+              <Template>units/spart_hero_brasidas</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="50">
+              <Template>units/spart_hero_leonidas_300</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="51">
+              <Template>units/spart_hero_agis</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="52">
+              <Template>units/spart_infantry_spearman_e</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="53">
+              <Template>units/spart_infantry_javelinist_b</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="54">
+              <Template>units/spart_cavalry_javelinist_b</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="55">
+              <Template>units/spart_hero_agis</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="56">
+              <Template>units/spart_hero_agis</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="57">
+              <Template>units/spart_infantry_javelinist_b</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="58">
+              <Template>units/spart_champion_infantry_sword</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="59">
+              <Template>units/spart_cavalry_javelinist_a</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="60">
+              <Template>units/spart_infantry_spearman_b</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="61">
+              <Template>units/spart_infantry_spearman_a</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="62">
+              <Template>units/spart_champion_infantry_spear</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="63">
+              <Template>units/spart_infantry_javelinist_e</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="64">
+              <Template>units/spart_infantry_spearman_b</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="65">
+              <Template>units/spart_cavalry_javelinist_a</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="66">
+              <Template>units/spart_champion_infantry_spear</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="67">
+              <Template>units/spart_hero_leonidas</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="68">
+              <Template>units/spart_infantry_javelinist_e</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="69">
+              <Template>units/spart_infantry_spearman_b</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="70">
+              <Template>units/spart_champion_infantry_spear</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="71">
+              <Template>units/spart_infantry_spearman_a</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="72">
+              <Template>units/spart_infantry_spearman_e</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="73">
+              <Template>units/spart_hero_brasidas</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="74">
+              <Template>units/spart_infantry_javelinist_a</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="75">
+              <Template>units/spart_black_cloak</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="76">
+              <Template>units/spart_champion_infantry_pike</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="77">
+              <Template>units/spart_infantry_javelinist_b</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="78">
+              <Template>units/spart_infantry_javelinist_a</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="79">
+              <Template>units/spart_cavalry_javelinist_e</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="80">
+              <Template>units/spart_champion_infantry_sword</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="81">
+              <Template>units/spart_infantry_javelinist_b</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="82">
+              <Template>units/spart_hero_leonidas_300</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="83">
+              <Template>units/spart_cavalry_spearman_e</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="84">
+              <Template>units/spart_infantry_javelinist_e</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="85">
+              <Template>units/spart_infantry_javelinist_a</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="86">
+              <Template>units/spart_cavalry_spearman_b</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="87">
+              <Template>units/spart_infantry_spearman_a</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="88">
+              <Template>units/spart_cavalry_javelinist_a</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="89">
+              <Template>units/spart_champion_infantry_sword</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="90">
+              <Template>units/spart_cavalry_javelinist_e</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="91">
+              <Template>units/spart_cavalry_javelinist_a</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="92">
+              <Template>units/spart_cavalry_javelinist_b</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="93">
+              <Template>units/spart_infantry_javelinist_b</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="94">
+              <Template>units/spart_cavalry_spearman_a</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="95">
+              <Template>units/spart_cavalry_javelinist_b</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="96">
+              <Template>units/spart_cavalry_javelinist_a</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="97">
+              <Template>units/spart_infantry_javelinist_a</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="98">
+              <Template>units/spart_cavalry_javelinist_e</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="99">
+              <Template>units/spart_hero_leonidas</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="100">
+              <Template>units/spart_cavalry_spearman_b</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="101">
+              <Template>units/spart_thorakites</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="102">
+              <Template>units/spart_hero_leonidas</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="103">
+              <Template>units/spart_hero_leonidas</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="104">
+              <Template>units/spart_hero_agis</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="105">
+              <Template>units/spart_infantry_spearman_a</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="106">
+              <Template>units/spart_cavalry_spearman_a</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="107">
+              <Template>units/spart_catafalque</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="108">
+              <Template>units/spart_thureophoros</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="109">
+              <Template>units/spart_catafalque</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="110">
+              <Template>units/spart_thureophoros</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="111">
+              <Template>units/spart_infantry_javelinist_a</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="112">
+              <Template>units/spart_infantry_javelinist_b</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="113">
+              <Template>units/spart_hero_leonidas_300</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="114">
+              <Template>units/spart_champion_infantry_spear</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="115">
+              <Template>units/spart_champion_infantry_spear</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="116">
+              <Template>units/spart_thureophoros</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="117">
+              <Template>units/spart_infantry_spearman_a</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="118">
+              <Template>units/spart_infantry_javelinist_b</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="119">
+              <Template>units/spart_infantry_javelinist_a</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="120">
+              <Template>units/spart_infantry_spearman_b</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="121">
+              <Template>units/spart_cavalry_spearman_e</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+            <Entity uid="122">
+              <Template>units/spart_infantry_javelinist_a</Template>
+              <Player>2</Player>
+              <Position x="326.66935" z="321.1384" />
+              <Orientation y="2.35621" />
+            </Entity>
+          </Entities>
+          <Paths />
+        </Scenario>
+        
